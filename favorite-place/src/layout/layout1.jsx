@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "@/components/ui/navbar/Navbar";
+import Navbar from "../components/NavBar";
+
 
 
 const Layout1 = () => {
@@ -8,8 +9,10 @@ const Layout1 = () => {
         <div>
             <main>
                 <Outlet />
+                <Navbar /> 
+               
             </main>
-            <Navbar />
+            
         </div>
     );
 };
