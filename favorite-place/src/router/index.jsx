@@ -11,11 +11,7 @@ import EditSignUp from '../components/editPage/EditSignUp';
 
 
 
-
-
-
-
-
+ 
 
 const router = createBrowserRouter([
     {
@@ -49,7 +45,13 @@ const router = createBrowserRouter([
             {
                 path: 'EditSignUp',
                 element:<EditSignUp/>
-            }
+            },
+           
+           {
+            path: 'Post',
+            element:<Post />
+           }
+            
            
         ],
     },
