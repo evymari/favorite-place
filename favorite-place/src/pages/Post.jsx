@@ -3,9 +3,15 @@ import CreatePost from '@/components/socialNetworks/CreatePost';
 
 
 
+
+
+
 const Post = () => {
   return (
+    <>
  <CreatePost></CreatePost>
+ 
+ </>
   )
 }
 

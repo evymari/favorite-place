@@ -1,13 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout1 from '../layout/layout1';
-import Home from '../pages/Home';
+import Front from '../pages/FrontPage';
 import Welcome from '../components/fontPage/Welcome';
 import Login from '../components/login/Login';
 import SignUp from '../components/login/SignUp';
 import Pages1 from '../pages/Pages1';
 import Account from '../pages/Account';
-
+import Post  from '../pages/Post'
 import EditSignUp from '../components/editPage/EditSignUp';
+import ViewPost from '../components/socialNetworks/ViewPost'
 
 
 
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home/>,
+                element: <Front/>,
             },
             {
                 path: 'welcome',
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
                 path: 'SignUp',
                 element: <SignUp />
             },
+            
             {
                 path: 'Pages1',
                 element: <Pages1 />
@@ -50,6 +52,11 @@ const router = createBrowserRouter([
            {
             path: 'Post',
             element:<Post />
+           },
+            
+           {
+            path: 'ViewPost/',
+            element:<ViewPost/>
            }
             
            
