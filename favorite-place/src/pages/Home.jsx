@@ -1,17 +1,13 @@
 import React from 'react'
-
-import FrontPage from '../components/fontPage/FrontPage'
-
+import ViewPost from '../components/socialNetworks/ViewPost'
 
 
 const Home = () => {
   return (
     <>
-   
-   <FrontPage />
-   
-   
-   </>
+    <ViewPost></ViewPost>
+    
+    </>
   )
 }
 

@@ -1,14 +1,27 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navigation from '../NavigationPages';
 
 // CreatePost.jsx
 const CreatePost = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/Home');
+  };
+  
   return (
-    <div className="bg-purple-100 min-h-screen p-4">
+    <div className="bg-purple-100 min-h-screen p-4 ">
       {/* Header */}
-      <div className="flex items-center mb-4">
-        <button className="text-gray-600 mr-4">←</button>
-        <h1 className="text-2xl font-bold">Create new post</h1>
-      </div>
+      
+            <div className="w-full max-w-xs p-8 mt-12 bg-white rounded-lg shadow-md ">
+                <button
+                    className="text-blue-500"
+                    onClick={() => navigate('/ViewPost')}
+                >
+                    &larr; Back
+                </button>
+                
 
       {/* Post Input */}
       <div className="bg-white rounded-xl p-4 shadow-lg">
@@ -37,14 +50,10 @@ const CreatePost = () => {
           Posting Now
         </button>
       </div>
+      <Navigation/>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg flex justify-between">
-        {/* <button className="text-purple-600">🏠</button>
-        <button className="text-gray-400">🔍</button>
-        <button className="text-gray-400">📊</button>
-        <button className="text-gray-400">⚙️</button> */}
-      </div>
+    
+    </div>
     </div>
   );
 };
