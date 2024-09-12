@@ -16,7 +16,7 @@ function FrontPage() {
         className="relative w-3/4 h-3/4 bg-black rounded-lg cursor-pointer"
       >
         <img
-          src="/image/logo-black.png" 
+          src="/image/logo-white.png" 
           alt="Favorite place logo"
           className="absolute inset-0 w-full h-full object-contain"
           
