@@ -1,4 +1,4 @@
-import Navigation from "../NavigationPages";
+
 
 const ViewPost = () => {
    
@@ -52,7 +52,7 @@ const ViewPost = () => {
             <span>💬 135</span>
           </div>
         </div>
-        <Navigation/>
+        
         
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navigation from '../NavigationPages';
+
+import FileUploader from './FileUploader';
 
 // CreatePost.jsx
 const CreatePost = () => {
@@ -11,7 +12,7 @@ const CreatePost = () => {
   };
   
   return (
-    <div className="bg-purple-100 min-h-screen p-4 ">
+    <div className="bg-purple-100 min-h-screen p-4 flex flex-col items-center min-h-screen">
       {/* Header */}
       
             <div className="w-full max-w-xs p-8 mt-12 bg-white rounded-lg shadow-md ">
@@ -22,8 +23,6 @@ const CreatePost = () => {
                     &larr; Back
                 </button>
                 
-
-      {/* Post Input */}
       <div className="bg-white rounded-xl p-4 shadow-lg">
         <div className="flex items-center mb-4">
           <img
@@ -37,9 +36,11 @@ const CreatePost = () => {
           </div>
         </div>
 
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center mb-4">
-          Add Picture / Video
+        <div >
+          
+          <FileUploader></FileUploader>
         </div>
+        
 
         <textarea
           placeholder="Type something here..."
@@ -50,7 +51,7 @@ const CreatePost = () => {
           Posting Now
         </button>
       </div>
-      <Navigation/>
+      
 
     
     </div>

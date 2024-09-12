@@ -17,7 +17,7 @@ const Navbar = () => {
                         aria-label="Home"
                     >
                         <Home className="w-6 h-6 transition-colors duration-300 text-accentBlack group-hover:text-primaryBlue" />
-                        <span className="text-sm transition-colors duration-300 text-accentBlack group-hover:text-primaryBlue font-roboto">Home</span>
+                        <span className="text-sm transition-colors duration-300 text-accentBlack group-hover:text-primaryBlue font-roboto"></span>
                     </NavLink>
                 </li>
                 <li className="flex flex-col items-center group">
@@ -29,7 +29,7 @@ const Navbar = () => {
 
 
                         <User className="w-6 h-6 transition-colors duration-300 text-accentBlack group-hover:text-primaryBlue" />
-                        <span className="text-sm transition-colors duration-300 text-accentBlack group-hover:text-primaryBlue font-roboto">Account</span>
+                        <span className="text-sm transition-colors duration-300 text-accentBlack group-hover:text-primaryBlue font-roboto"></span>
 
                     </div>
                 </li>

@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../Button';
+import Button from '../butons/Button';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -10,10 +10,10 @@ function EditSignUp({ userData }) {
     const navigate = useNavigate();
     const [selectedAvatar, setSelectedAvatar] = useState(userData?.avatar || '/images/agregar-usuario.png');
     const [avatarOptions] = useState([
-        '/images/account1.png',
-        '/images/account2.png',
-        '/images/account3.png',
-        '/images/account4.png'
+        '/image/account1.png',
+        '/image/account2.png',
+        '/image/account3.png',
+        '/image/account4.png'
     ]);
 
     const handleAvatarSelect = (avatar) => {
@@ -54,11 +54,11 @@ function EditSignUp({ userData }) {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center min-h-screen bg-gray-100 bg-purple-100 min-h-screen p-4 ">
             <div className="w-full max-w-xs p-8 mt-12 bg-white rounded-lg shadow-md">
                 <button
                     className="text-blue-500"
-                    onClick={() => navigate('/AccountStart')}
+                    onClick={() => navigate('/Account')}
                 >
                     &larr; Back
                 </button>

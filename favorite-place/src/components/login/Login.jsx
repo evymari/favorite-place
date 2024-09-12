@@ -1,13 +1,12 @@
-
-
 import { useState } from "react";
-
-//import { loginUser } from "@/services/api";
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import Button from "../Button"
+import Button from "../butons/Button"
+import UseApi from "../../hook/UseApi";
+import { API_BASE_URL } from "../../config/Urls";
+import AuthButtons from "../butons/AuthButtons";
 
 function Login() {
   const navigate = useNavigate();
@@ -17,7 +16,9 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState('');
 
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  // Regex sin caracteres especiales
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
@@ -25,35 +26,70 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!passwordRegex.test(password)) {
-      setError('Password or login empty.');
+    setError('');
+
+    if (!password) {
+      setError('Please enter a password.');
       return;
     }
+
+    // Validación de contraseña sin caracteres especiales
+    if (!passwordRegex.test(password)) {
+      if (password.length < 8) {
+        setError('Password must be at least 8 characters long.');
+      } else if (!/[a-z]/.test(password)) {
+        setError('Password must contain at least one lowercase letter.');
+      } else if (!/[A-Z]/.test(password)) {
+        setError('Password must contain at least one uppercase letter.');
+      } else if (!/\d/.test(password)) {
+        setError('Password must contain at least one number.');
+      } else {
+        setError('Password does not meet the security requirements.');
+      }
+      return;
+    }
+
     if (!validateEmail(email)) {
-      setError('Invalid email format');
+      setError('Invalid email format.');
       return;
     }
 
     try {
-      const result = await loginUser(email, password);
-      const { token, user } = result;
-      
+      const apiEndpoint = `${API_BASE_URL}auth/`;
+      const result = await UseApi({
+        apiEndpoint,
+        method: 'POST',
+        body: { username: email, password },
+      });
+
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+
+      const { token, user } = result.data;
       localStorage.setItem('token', token);
       localStorage.setItem('userData', JSON.stringify(user));
 
       setMessage('User logged in successfully');
-      console.log(result);
       navigate('/Inspireme');
     } catch (error) {
-      setError('An error occurred during login');
+      setError('An error occurred during login. Please try again.');
       console.error(error);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/image/style.png')] ">
       <div className="relative flex flex-col justify-start pb-40">
-        <h2 className="mt-2 mb-40 text-2xl font-bold text-left">Log in</h2>
+        
+          <img
+            src="/image/logo-white.png"
+            alt="Favorite place logo"
+            className="mb-12 w-32 h-24 left-12"
+          />
+        <AuthButtons />
+        <br></br>
         <div className="relative mb-1">
           {error && <p className="mb-4 text-center text-red-500">{error}</p>}
           {message && <p className="mb-4 text-center text-green-500">{message}</p>}
@@ -100,7 +136,6 @@ function Login() {
               <Link to="/SignUp" className="text-blue-600 hover:underline">
                 Sign up
               </Link>
-             
             </div>
           </form>
         </div>
