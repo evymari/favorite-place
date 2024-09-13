@@ -1,61 +1,133 @@
 
+import React from 'react';
 
-const ViewPost = () => {
-   
-    return (
-      <div className="bg-purple-100 min-h-screen p-4">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Home</h1>
-          <div className="rounded-full bg-gray-200 h-10 w-10 flex items-center justify-center">
-            <img src="/profile-pic.jpg" alt="Profile" className="rounded-full" />
-          </div>
+function ViewPos() {
+  return (
+    <div className="bg-gray-100 h-screen">
+      
+      <div className="flex justify-between items-center p-4 bg-white shadow-md">
+        <h1 className="text-xl font-semibold text-blue-600">Home</h1>
+        <div className="flex items-center">
+          <div className="text-gray-400 text-xl">🔔</div>
         </div>
-  
-        {/* Input Box */}
-        <div className="bg-white rounded-xl p-4 mb-4 shadow-lg">
+      </div>
+
+   
+      <div className="bg-white p-4 my-4 rounded-lg shadow-md">
+        <div className="flex items-center mb-3">
+          <img
+            className="w-10 h-10 rounded-full"
+            src="/image/5.png"
+            alt="profile"
+          />
           <input
             type="text"
             placeholder="What's on your head?"
-            className="w-full p-3 rounded-lg bg-gray-100 text-gray-600"
+            className="ml-3 w-full bg-gray-100 rounded-full px-4 py-2 focus:outline-none"
           />
-          <div className="flex justify-between mt-2">
-            <button className="text-purple-600">Image</button>
-            <button className="text-purple-600">Video</button>
-            <button className="text-purple-600">Attach</button>
-          </div>
         </div>
-  
-        {/* Posts */}
-        <div className="bg-white rounded-xl p-4 mb-4 shadow-lg">
-          <div className="flex items-center mb-2">
-            <img
-              src="/user-pic.jpg"
-              alt="User"
-              className="h-10 w-10 rounded-full"
-            />
-            <div className="ml-2">
-              <h2 className="font-bold">Karim Saif</h2>
-              <p className="text-sm text-gray-500">10:00 AM</p>
-            </div>
-          </div>
-          <p className="mb-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
+        <div className="flex justify-between items-center mt-3 text-sm text-gray-500">
+          <button className="flex items-center space-x-1 text-purple-500">
+            <span>🖼️</span>
+            <span>Image</span>
+          </button>
+          <button className="flex items-center space-x-1 text-purple-500">
+            <span>📹</span>
+            <span>Video</span>
+          </button>
+          <button className="flex items-center space-x-1 text-purple-500">
+            <span>📎</span>
+            <span>Attach</span>
+          </button>
+        </div>
+        
+        <div className="flex space-x-2 mt-3">
           <img
-            src="/post-image.jpg"
-            alt="Post"
-            className="w-full rounded-lg mb-2"
+            className="w-24 h-24 rounded-lg"
+            src="/image/3.png"
+            alt="Preview 1"
           />
-          <div className="flex justify-between">
-            <span>❤️ 1,994</span>
-            <span>💬 135</span>
+          <img
+            className="w-24 h-24 rounded-lg"
+            src="/image/4.png"
+            alt="Preview 2"
+          />
+          <img
+            className="w-24 h-24 rounded-lg"
+            src="/image/2.png"
+            alt="Preview 3"
+          />
+        </div>
+      </div>
+
+      
+      <div className="bg-white p-4 my-4 rounded-lg shadow-md">
+        <div className="flex items-center">
+          <img
+            className="w-10 h-10 rounded-full"
+            src="/image/account3.png"
+            alt="profile"
+          />
+          <div className="ml-3">
+            <h2 className="font-semibold">Karim Saif</h2>
+            <p className="text-sm text-gray-500">3h ago</p>
           </div>
         </div>
-        
-        
+
+        <p className="mt-4 text-gray-700">
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Pharetra Mauris id Aramus.
+        </p>
+
+        <img
+          className="my-4 w-full rounded-lg"
+          src="/image/photo.jpeg"
+          alt="Post Image"
+        />
+
+        <div className="flex justify-between items-center text-gray-500">
+          <div className="flex items-center space-x-2">
+            <button>👍 1.3M</button>
+            <button>❤️ 5.4K</button>
+          </div>
+          <button className="text-gray-400">💬 1.2K</button>
+        </div>
       </div>
-    );
-  };
-  
-  export default ViewPost;
+
+      
+      <div className="bg-white p-4 my-4 rounded-lg shadow-md">
+        <div className="flex items-center">
+          <img
+            className="w-10 h-10 rounded-full"
+            src="/image/2.png"
+            alt="profile"
+          />
+          <div className="ml-3">
+            <h2 className="font-semibold">Kriston Watson</h2>
+            <p className="text-sm text-gray-500">5h ago</p>
+          </div>
+        </div>
+
+        <img
+          className="my-4 w-full rounded-lg"
+          src="/image/3.png"
+          alt="Post Image"
+        />
+      </div>
+
+     
+      <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow-md">
+        <div className="flex justify-between text-gray-500">
+          {/* <button className="text-purple-500"><span>🏠</span></button> */}
+          {/* <button><span>🔍</span></button>
+          <button><span>📸</span></button>
+          <button><span>🔔</span></button>
+          <button><span>👤</span></button> */}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+  export default ViewPos;

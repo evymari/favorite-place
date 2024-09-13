@@ -19,11 +19,11 @@ function AccountStart() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center bg-purple-100 p-4 ">
       <div className="w-full max-w-xs p-8 bg-white shadow-md rounded-lg mt-24">
         <div className="flex flex-row items-center mt-4">
-          <h2 className="text-xl font-bold ">{userData.username || 'User'}</h2>
-          <p className="text-gray-500 mt-8 -ml-12">View and edit your profile</p>
+          <h2 className="text-xl font-bold  -mt-8">{userData.username || 'User'}</h2>
+          <p className="text-gray-500 mt-12 -ml-12">View and edit your profile</p>
           <img
             className="w-20 h-20 rounded-full mb-2 ml-8"
-            src="/images/agregar-usuario.png"
+            src="/image/account2.png"
             alt="User Avatar"
           />
         </div>

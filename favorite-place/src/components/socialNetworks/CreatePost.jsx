@@ -13,7 +13,7 @@ const CreatePost = () => {
   
   return (
     <div className="bg-purple-100 min-h-screen p-4 flex flex-col items-center min-h-screen">
-      {/* Header */}
+  
       
             <div className="w-full max-w-xs p-8 mt-12 bg-white rounded-lg shadow-md ">
                 <button
@@ -26,7 +26,7 @@ const CreatePost = () => {
       <div className="bg-white rounded-xl p-4 shadow-lg">
         <div className="flex items-center mb-4">
           <img
-            src="/profile-pic.jpg"
+            src="/image/account2.png"
             alt="Profile"
             className="h-10 w-10 rounded-full"
           />
