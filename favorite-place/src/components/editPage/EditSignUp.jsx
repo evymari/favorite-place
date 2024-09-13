@@ -1,39 +1,85 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../butons/Button';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+export const BASE_URL = 'http://127.0.0.1:8000/api/v1';
+export const UPDATE_USER = `${BASE_URL}/profile/update/`;
+export const DELETE_USER = `${BASE_URL}/profile/delete/`;
+export const USER_DETAIL = `${BASE_URL}/profile/`;
 
-function EditSignUp({ userData }) {
+function EditProfile({ userData }) {
     const navigate = useNavigate();
     const [selectedAvatar, setSelectedAvatar] = useState(userData?.avatar || '/images/agregar-usuario.png');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [avatarOptions] = useState([
         '/image/account1.png',
         '/image/account2.png',
         '/image/account3.png',
         '/image/account4.png'
     ]);
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');  
 
-    const handleAvatarSelect = (avatar) => {
-        setSelectedAvatar(avatar);
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(USER_DETAIL, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                const user = response.data;
+                setUsername(user.username);
+                setEmail(user.email);
+                setSelectedAvatar(user.avatar || '/images/agregar-usuario.png');
+            } catch (error) {
+                setError('Error fetching user details');
+                console.error('Error fetching user details:', error);
+            }
+        };
+
+        fetchUserDetails();
+    }, []);
+
+    const handleSaveChanges = async (e) => {
+        e.preventDefault();
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.put(UPDATE_USER, {
+                username,
+                email,
+                password,
+                avatar: selectedAvatar
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.status === 200) {
+                setMessage('Profile updated successfully!');
+                setTimeout(() => {
+                    navigate('/Account');
+                }, 2000);
+            } else {
+                console.error('Failed to update profile:', response.data);
+            }
+        } catch (error) {
+            setError('Error updating profile');
+            console.error('Error updating profile:', error);
+        }
     };
-    const username = userData?.username;
-
 
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem('token');
-            if (!token) {
-                console.error('No token found');
-                return;
-            }
-
-            console.log('Username to delete:', username);
-
-
-            const response = await axios.delete(`http://127.0.0.1:8000/api/users/delete/${username}`, {
+            const response = await axios.delete(DELETE_USER, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -41,60 +87,81 @@ function EditSignUp({ userData }) {
             });
 
             if (response.status === 204) {
-                console.log('Account deleted successfully');
+                setMessage('Account deleted successfully!');
                 localStorage.removeItem('token');
-                navigate('/Signup');
+                setTimeout(() => {
+                    navigate('/Signup');
+                }, 2000);
             } else {
                 console.error('Failed to delete account:', response.data);
             }
         } catch (error) {
+            setError('Error deleting account');
             console.error('Error deleting account:', error);
         }
+    };
 
+    const handleAvatarSelect = (avatar) => {
+        setSelectedAvatar(avatar);
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen bg-gray-100 bg-purple-100 min-h-screen p-4 ">
+        <div className="flex flex-col items-center min-h-screen bg-gray-100">
             <div className="w-full max-w-xs p-8 mt-12 bg-white rounded-lg shadow-md">
                 <button
                     className="text-blue-500"
-                    onClick={() => navigate('/Account')}
+                    onClick={() => navigate('/AccountStart')}
                 >
                     &larr; Back
                 </button>
 
                 <div className="flex flex-col items-center mt-2">
-                    <h2 className="mt-6 text-xl font-bold -ml-28">Edit Profile</h2>
+                    <h2 className="mt-6 text-xl font-bold">Edit Profile</h2>
                     <img
-                        className="w-24 h-24 mb-4 ml-32 -mt-8 rounded-full"
+                        className="w-24 h-24 mb-4 rounded-full"
                         src={selectedAvatar}
                         alt="Selected Avatar"
                     />
                 </div>
 
-                <form className="-mt-2">
+               
+                {message && (
+                    <div className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg">
+                        {message}
+                    </div>
+                )}
+                {error && (
+                    <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
+                        {error}
+                    </div>
+                )}
+
+                <form onSubmit={handleSaveChanges}>
                     <div className="mb-4">
                         <label htmlFor="Username" className="block text-gray-700">Username</label>
                         <input
                             type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            defaultValue="Aqua_KH"
                         />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="Email" className="block text-gray-700">Email</label>
                         <input
                             type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            defaultValue="aqua.kh@gmail.com"
                         />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="Password" className="block text-gray-700">Password</label>
                         <input
                             type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            defaultValue="**********"
                         />
                     </div>
 
@@ -125,7 +192,6 @@ function EditSignUp({ userData }) {
                         className="w-full px-4 py-2 mt-4 text-white bg-red-500 rounded-lg"
                     >
                         Delete Account
-
                     </Button>
                 </form>
             </div>
@@ -133,12 +199,12 @@ function EditSignUp({ userData }) {
     );
 }
 
-// EditProfile.propTypes = {
-//     userData: PropTypes.shape({
-//         username: PropTypes.string,
-//         email: PropTypes.string,
-//         avatar: PropTypes.string,
-//     })
-// };
+EditProfile.propTypes = {
+    userData: PropTypes.shape({
+        username: PropTypes.string,
+        email: PropTypes.string,
+        avatar: PropTypes.string,
+    })
+};
 
-export default EditSignUp;
+export default EditProfile;

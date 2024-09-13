@@ -27,9 +27,9 @@ const FileUploader = () => {
   };
 
   return (
-    <div className="relative border-3 border-grey p-4 h-60 w-full max-w-xs overflow-hidden mx-auto">
+    <div className="relative border-3 border-grey p-4 h-60 w-full max-w-xs overflow-hidden mx-auto ">
       <div
-        className={`box bg-gray-300 bg-center bg-contain bg-no-repeat h-full relative p-5 ${
+        className={`box bg-gray-300 bg-center bg-contain bg-no-repeat h-full relative p-5 bg-white${
           file ? "" : "flex items-center justify-center"
         }`}
         style={file ? { backgroundImage: `url(${file})` } : {}}
@@ -44,7 +44,7 @@ const FileUploader = () => {
         )}
         {!file && (
           <p
-            className="select_bottom absolute inset-0 flex items-center justify-center bg-black text-white cursor-pointer p-2"
+            className="select_bottom relative inset-0 flex items-center justify-center bg-black text-white cursor-pointer p-2 h-24 w-20 mt-4 ml-6"
             onClick={() => document.getElementById("filefield").click()}
           >
             Seleccionar un archivo

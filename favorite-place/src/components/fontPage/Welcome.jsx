@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar'
 
 
-
 function Welcome() {
   const handleClick = () => {
     
@@ -14,7 +13,7 @@ function Welcome() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-purple-100" onClick={handleClick}>
       <img
-        src="/image/logo-white.png"
+        src="/image/2.png"
         alt="Favorite place logo"
         className="mb-4 w-25 h-25"
 

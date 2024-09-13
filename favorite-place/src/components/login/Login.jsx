@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import Button from "../butons/Button"
-import UseApi from "../../hook/UseApi";
-import { API_BASE_URL } from "../../config/Urls";
-import AuthButtons from "../butons/AuthButtons";
+import Button from '../butons/Button';
+import AuthButtons from '../butons/AuthButtons';
+import { USER_LOGIN } from '../../config/Urls';
+import useApi from '../../hook/UseApi';
 
 function Login() {
   const navigate = useNavigate();
@@ -15,9 +15,6 @@ function Login() {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState('');
-
-  // Regex sin caracteres especiales
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,61 +30,42 @@ function Login() {
       return;
     }
 
-    // Validación de contraseña sin caracteres especiales
-    if (!passwordRegex.test(password)) {
-      if (password.length < 8) {
-        setError('Password must be at least 8 characters long.');
-      } else if (!/[a-z]/.test(password)) {
-        setError('Password must contain at least one lowercase letter.');
-      } else if (!/[A-Z]/.test(password)) {
-        setError('Password must contain at least one uppercase letter.');
-      } else if (!/\d/.test(password)) {
-        setError('Password must contain at least one number.');
-      } else {
-        setError('Password does not meet the security requirements.');
-      }
-      return;
-    }
-
     if (!validateEmail(email)) {
       setError('Invalid email format.');
       return;
     }
 
     try {
-      const apiEndpoint = `${API_BASE_URL}auth/`;
-      const result = await UseApi({
-        apiEndpoint,
+      const response = await fetch(USER_LOGIN, {
         method: 'POST',
-        body: { username: email, password },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
       });
 
-      if (result.error) {
-        setError(result.error);
-        return;
+      const result = await response.json();
+
+      if (response.ok) {
+        const { token, user } = result.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('userData', JSON.stringify(user));
+
+        setMessage('User logged in successfully');
+        navigate('/ViewPost');  
+      } else {
+        setError(result.error || 'An error occurred during login.');
       }
-
-      const { token, user } = result.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('userData', JSON.stringify(user));
-
-      setMessage('User logged in successfully');
-      navigate('/Inspireme');
     } catch (error) {
-      setError('An error occurred during login. Please try again.');
+      setError('An unexpected error occurred.');
       console.error(error);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/image/style.png')] ">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/image/style.png')]">
       <div className="relative flex flex-col justify-start pb-40">
         
-          <img
-            src="/image/logo-white.png"
-            alt="Favorite place logo"
-            className="mb-12 w-32 h-24 left-12"
-          />
         <AuthButtons />
         <br></br>
         <div className="relative mb-1">
@@ -101,6 +79,7 @@ function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 border rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                required
               />
             </div>
             <div className="relative mb-8">
@@ -110,6 +89,7 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                required
               />
               <button
                 type="button"
@@ -127,7 +107,7 @@ function Login() {
             </div>
             <Button
               type="submit"
-              className="font-semibold text-white transition-colors rounded-full hover:bg-blue-700 bg-purple-600 "
+              className="font-semibold text-white transition-colors rounded-full bg-purple-600 hover:bg-purple-700"
             >
               Log in
             </Button>
