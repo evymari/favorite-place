@@ -9,6 +9,7 @@ import Account from '../pages/Account';
 import Post  from '../pages/Post'
 import EditSignUp from '../components/editPage/EditSignUp';
 import ViewPost from '../components/socialNetworks/ViewPost'
+import AccountStart from '../components/editPage/AccountStart';
 
 
 
@@ -35,19 +36,29 @@ const router = createBrowserRouter([
                 path: 'SignUp',
                 element: <SignUp />
             },
-            
             {
-                path: 'Pages1',
-                element: <Pages1 />
+                path: 'AccountStart',
+                element: <AccountStart/>
             },
             {
                 path: 'Account',
                 element:<Account/>
             },
+           
             {
                 path: 'EditSignUp',
                 element:<EditSignUp/>
             },
+            {
+                path: 'ViewPost/',
+                element:<ViewPost/>
+               },
+            
+            {
+                path: 'Pages1',
+                element: <Pages1 />
+            },
+          
            
            {
             path: 'Post',

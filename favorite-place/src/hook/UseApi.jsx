@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const UseApi = ({ apiEndpoint, method = 'GET', body = null, headers = {} }) => {
+const useApi = ({ apiEndpoint, method = 'GET', body = null, headers = {} }) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -19,19 +19,19 @@ const UseApi = ({ apiEndpoint, method = 'GET', body = null, headers = {} }) => {
         const fetchData = async () => {
             try {
                 console.log('Fetching data from:', apiEndpoint);
-
+                
                 const token = localStorage.getItem('token');
                 const axiosConfig = {
                     headers: {
                         ...headers,
-                        Authorization: token ? `Token ${token}` : '',
+                        Authorization: token ? `Token ${token}` : '', 
                     },
                     cancelToken: source.token,
                 };
                 let response;
 
                 console.log('Making API request:', { apiEndpoint, method, body, headers: axiosConfig.headers });
-
+                
                 switch (method.toUpperCase()) {
                     case 'POST':
                         response = await axios.post(apiEndpoint, body, axiosConfig);
@@ -47,7 +47,7 @@ const UseApi = ({ apiEndpoint, method = 'GET', body = null, headers = {} }) => {
                         response = await axios.get(apiEndpoint, axiosConfig);
                         break;
                 }
-                console.log('Response data:', response.data);
+                console.log('Response data:', response.data); 
                 setData(response.data);
 
             } catch (error) {
@@ -69,4 +69,4 @@ const UseApi = ({ apiEndpoint, method = 'GET', body = null, headers = {} }) => {
     return { data, loading, error };
 };
 
-export default UseApi;
+export default useApi;
