@@ -22,7 +22,7 @@ function EditProfile({ userData }) {
         '/image/account4.png'
     ]);
     const [message, setMessage] = useState('');
-    const [error, setError] = useState('');  // Para manejar errores
+    const [error, setError] = useState('');  
 
     useEffect(() => {
         const fetchUserDetails = async () => {
@@ -124,7 +124,7 @@ function EditProfile({ userData }) {
                     />
                 </div>
 
-                {/* Mostrar mensaje de éxito o error */}
+               
                 {message && (
                     <div className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg">
                         {message}

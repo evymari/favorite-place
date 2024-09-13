@@ -52,7 +52,7 @@ function Login() {
         localStorage.setItem('userData', JSON.stringify(user));
 
         setMessage('User logged in successfully');
-        navigate('/ViewPost');  // Redirige a la página de inspiración u otra página después del inicio de sesión
+        navigate('/ViewPost');  
       } else {
         setError(result.error || 'An error occurred during login.');
       }
